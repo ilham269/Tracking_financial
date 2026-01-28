@@ -10,7 +10,7 @@
         <div class="card bg-gradient-primary text-white shadow">
             <div class="card-body d-flex justify-content-between align-items-center">
                 <div>
-                    <h4 class="mb-1">💳 Dashboard Keuangan</h4>
+                    <h4 class="mb-1">💳 Dashboard Keuangan Anda</h4>
                     <small>Ringkasan kondisi e-wallet kamu</small>
                 </div>
                 <h3 class="mb-0">Rp {{ number_format($totalSaldo,0,',','.') }}</h3>

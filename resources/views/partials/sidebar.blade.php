@@ -14,7 +14,7 @@
         <li class="menu-item {{ request()->routeIs('home') ? 'active' : '' }}">
             <a href="{{ route('home') }}" class="menu-link">
                 <i class="menu-icon bx bx-home-circle"></i>
-                <div class="fw-semibold">Dashboard</div>
+                <div class="fw-semibold">Home</div>
             </a>
         </li>
 

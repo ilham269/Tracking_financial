@@ -6,6 +6,8 @@ use App\Http\Controllers\UangKeluarController;
 use App\Http\Controllers\UangMasukController;
 use App\Http\Controllers\LaporanController;
 use App\Models\Uang_masuk;
+use App\Http\Controllers\Admin\AdminDashboardController;
+use App\Http\Controllers\Admin\UserController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -52,3 +54,18 @@ Route::resource('uang-masuk', UangMasukController::class)->only([
     'store'
 ]);
 
+//admin dashboard
+Route::middleware(['auth', 'role:admin'])->group(function () {
+    Route::get('/admin/dashboard', [AdminDashboardController::class, 'index'])
+        ->name('admin.dashboard');
+});
+
+Route::middleware(['auth', 'role:admin'])->prefix('admin')->group(function () {
+
+    Route::get('/users', [UserController::class, 'index'])->name('admin.users.index');
+    Route::get('/users/{user}/edit', [UserController::class, 'edit'])->name('admin.users.edit');
+    Route::put('/users/{user}', [UserController::class, 'update'])->name('admin.users.update');
+    Route::delete('/users/{user}', [UserController::class, 'destroy'])->name('admin.users.destroy');
+});
+
+Route::get('/Admin/users', [UserController::class, 'index'])->name('admin.users.index');
