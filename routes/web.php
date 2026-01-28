@@ -11,6 +11,23 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+
+// admin role
+Route::middleware(['auth', 'role:admin'])->group(function () {
+    Route::get('/admin/dashboard', function () {
+        return view('admin.dashboard');
+    });
+});
+
+Route::middleware(['auth', 'role:user'])->group(function () {
+    Route::get('/user/dashboard', function () {
+        return view('user.dashboard');
+    });
+});
+
+
+
+
 Route::get('/laporan/export-excel', [LaporanController::class, 'exportExcel'])
     ->name('laporan.export.excel');
 

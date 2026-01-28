@@ -4,7 +4,7 @@
     <div class="app-brand px-4 py-3 border-bottom">
         <a href="{{ route('home') }}" class="app-brand-link d-flex align-items-center gap-2">
             <span class="fs-4">💰</span>
-            <span class="app-brand-text fw-bold fs-5">Financial</span>
+            <span class="app-brand-text fw-bold fs-5">Financial Tracking</span>
         </a>
     </div>
 

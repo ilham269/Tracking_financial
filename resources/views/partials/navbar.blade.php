@@ -1,7 +1,7 @@
 <nav class="layout-navbar navbar navbar-expand-xl navbar-detached bg-white shadow-sm rounded-3 px-4">
     <div>
         <a href="{{ route('home') }}" class="navbar-brand">
-            <span class="fw-bold text-primary">💰 Financial tracktion</span>
+            <span class="fw-bold text-primary">💰 Financial Tracking</span>
         </a>
     </div>
     <div class="d-flex align-items-center ms-auto">
@@ -47,6 +47,14 @@
                         <small class="text-muted">
                             @auth Administrator @else Visitor @endauth
                         </small>
+                    </li>
+                    <li class="px-3 py-2">
+                        <span class="text-muted">
+                            @if(auth()->user()->role == 'admin')
+    <a href="/admin/dashboard">Admin Panel</a>
+@endif
+
+                        </span>
                     </li>
 
                     <li><hr class="dropdown-divider"></li>
