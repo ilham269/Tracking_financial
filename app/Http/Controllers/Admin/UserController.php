@@ -12,13 +12,13 @@ class UserController extends Controller
     public function index()
     {
         $users = User::latest()->get();
-        return view('admin.users.index', compact('users'));
+        return view('Admin.users.index', compact('users'));
     }
 
     // FORM EDIT
     public function edit(User $user)
     {
-        return view('admin.users.edit', compact('user'));
+        return view('Admin.users.edit', compact('user'));
     }
 
     // UPDATE USER

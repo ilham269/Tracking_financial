@@ -8,6 +8,8 @@ use App\Http\Controllers\LaporanController;
 use App\Models\Uang_masuk;
 use App\Http\Controllers\Admin\AdminDashboardController;
 use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\Admin\TransactionController;
+use App\Http\Controllers\ProfileController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -45,6 +47,11 @@ Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
+Route::middleware('auth')->group(function () {
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::post('/profile/photo', [ProfileController::class, 'updatePhoto'])->name('profile.photo.update');
+});
+
 //saldo
 Route::resource('saldo', SaldoController::class);
 Route::resource('uang-keluar', UangKeluarController::class);
@@ -66,6 +73,9 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->group(function () {
     Route::get('/users/{user}/edit', [UserController::class, 'edit'])->name('admin.users.edit');
     Route::put('/users/{user}', [UserController::class, 'update'])->name('admin.users.update');
     Route::delete('/users/{user}', [UserController::class, 'destroy'])->name('admin.users.destroy');
+
+    Route::get('/transactions', [TransactionController::class, 'index'])
+        ->name('admin.transactions.index');
 });
 
 Route::get('/Admin/users', [UserController::class, 'index'])->name('admin.users.index');

@@ -36,7 +36,8 @@ class SaldoController extends Controller
 
         Saldo::create([
             'nama_e_wallet' => $request->nama_e_wallet,
-            'total' => $request->total
+            'total' => $request->total,
+            'user_id' => $request->user()->id,
         ]);
         return redirect()->route('saldo.index')->with('success', 'Saldo berhasil ditambahkan.');
     }

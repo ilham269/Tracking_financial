@@ -1,55 +1,124 @@
-<aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme shadow-sm">
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <title>Sidebar Financial Tracking</title>
 
-    {{-- BRAND --}}
-    <div class="app-brand px-4 py-3 border-bottom">
-        <a href="{{ route('home') }}" class="app-brand-link d-flex align-items-center gap-2">
-            <span class="fs-4">💰</span>
-            <span class="app-brand-text fw-bold fs-5">Financial Tracking</span>
+    <!-- Bootstrap 5 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Boxicons -->
+    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+
+    <style>
+        /* ===== SIDEBAR THEME ===== */
+        .sidebar {
+            width: 260px;
+            min-height: 100vh;
+            background-color: #0f0f0f;
+        }
+
+        .sidebar a {
+            text-decoration: none;
+        }
+
+        .brand {
+            border-bottom: 1px solid #1f1f1f;
+        }
+
+        .brand-text {
+            letter-spacing: 0.5px;
+        }
+
+        .menu-header {
+            font-size: 11px;
+            letter-spacing: 1px;
+            color: #9ca3af;
+        }
+
+        .menu-link {
+            color: #e5e7eb;
+            border-radius: 8px;
+            transition: 0.2s ease;
+        }
+
+        .menu-link:hover {
+            background-color: #1f1f1f;
+            color: #ffffff;
+        }
+
+        .menu-link i {
+            font-size: 1.25rem;
+            color: #d1d5db;
+        }
+
+        .active-menu {
+            background-color: #ffffff;
+            color: #0f0f0f !important;
+            font-weight: 600;
+        }
+
+        .active-menu i {
+            color: #0f0f0f;
+        }
+    </style>
+</head>
+<body class="d-flex">
+
+<aside class="sidebar shadow-sm">
+
+    <!-- BRAND -->
+    <div class="brand px-4 py-3">
+        <a href="{{ route('home') }}" class="d-flex align-items-center gap-2 text-white">
+            <span class="fs-4"><i class="bi bi-currency-exchange"></i></span>
+            <span class="brand-text fw-bold fs-5">Financial Tracking</span>
         </a>
     </div>
 
-    <ul class="menu-inner py-3">
+    <!-- MENU -->
+    <ul class="nav flex-column px-2 mt-3">
 
-        {{-- DASHBOARD --}}
-        <li class="menu-item {{ request()->routeIs('home') ? 'active' : '' }}">
-            <a href="{{ route('home') }}" class="menu-link">
-                <i class="menu-icon bx bx-home-circle"></i>
-                <div class="fw-semibold">Home</div>
+        <li class="nav-item mb-1">
+            <a href="{{ route('home') }}"
+               class="nav-link menu-link {{ request()->routeIs('home') ? 'active-menu' : '' }}">
+                <i class="bx bx-grid-alt me-2"></i> Home
             </a>
         </li>
 
-        {{-- SECTION --}}
-        <li class="menu-header small text-uppercase mt-3">
-            <span class="menu-header-text text-muted">Keuangan</span>
+        <li class="px-3 mt-4 mb-2 menu-header">
+            KEUANGAN
         </li>
 
-        <li class="menu-item {{ request()->is('saldo*') ? 'active' : '' }}">
-            <a href="{{ route('saldo.index') }}" class="menu-link">
-                <i class="menu-icon bx bx-wallet"></i>
-                <div>Saldo / E-Wallet</div>
+        <li class="nav-item mb-1">
+            <a href="{{ route('saldo.index') }}"
+               class="nav-link menu-link {{ request()->is('saldo*') ? 'active-menu' : '' }}">
+                <i class="bx bx-credit-card me-2"></i> Saldo / E-Wallet
             </a>
         </li>
 
-        <li class="menu-item {{ request()->is('uang-masuk*') ? 'active' : '' }}">
-            <a href="{{ route('uang-masuk.index') }}" class="menu-link">
-                <i class="menu-icon bx bx-log-in-circle text-success"></i>
-                <div>Uang Masuk</div>
+        <li class="nav-item mb-1">
+            <a href="{{ route('uang-masuk.index') }}"
+               class="nav-link menu-link {{ request()->is('uang-masuk*') ? 'active-menu' : '' }}">
+                <i class="bx bx-trending-up me-2"></i> Uang Masuk
             </a>
         </li>
 
-        <li class="menu-item {{ request()->is('uang-keluar*') ? 'active' : '' }}">
-            <a href="{{ route('uang-keluar.index') }}" class="menu-link">
-                <i class="menu-icon bx bx-log-out-circle text-danger"></i>
-                <div>Uang Keluar</div>
+        <li class="nav-item mb-1">
+            <a href="{{ route('uang-keluar.index') }}"
+               class="nav-link menu-link {{ request()->is('uang-keluar*') ? 'active-menu' : '' }}">
+                <i class="bx bx-trending-down me-2"></i> Uang Keluar
             </a>
         </li>
-        <li class="menu-item {{ request()->is('laporan*') ? 'active' : '' }}">
-    <a href="{{ route('laporan.bulanan') }}" class="menu-link">
-        <i class="menu-icon bx bx-bar-chart"></i>
-        <div>Laporan Bulanan</div>
-    </a>
-</li>
 
+        <li class="nav-item">
+            <a href="{{ route('laporan.bulanan') }}"
+               class="nav-link menu-link {{ request()->is('laporan*') ? 'active-menu' : '' }}">
+                <i class="bx bx-line-chart me-2"></i> Laporan Bulanan
+            </a>
+        </li>
 
     </ul>
 </aside>
+
+</body>
+</html>
