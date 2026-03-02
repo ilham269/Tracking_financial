@@ -78,6 +78,47 @@
     .menu-link.btn:hover {
         background-color: #2a1d1d;
     }
+
+    @media (max-width: 1199.98px) {
+        #layout-menu {
+            width: min(84vw, 300px);
+            box-shadow: 0 16px 32px rgba(0, 0, 0, 0.35);
+        }
+
+        .app-brand {
+            height: 64px;
+            padding-left: 1rem !important;
+            padding-right: 1rem !important;
+        }
+
+        .menu-inner {
+            padding: 0.5rem;
+        }
+
+        .menu-link {
+            margin: 0;
+            padding: 10px 12px;
+            border-radius: 10px;
+            gap: 10px;
+        }
+    }
+
+    @media (max-width: 575.98px) {
+        .app-brand .badge {
+            display: none;
+        }
+
+        .menu-header {
+            margin-top: 14px;
+            margin-bottom: 6px;
+            padding-left: 0.75rem;
+        }
+
+        .menu-header-text {
+            font-size: 0.65rem;
+            letter-spacing: 1px;
+        }
+    }
 </style>
 
 <aside id="layout-menu" class="layout-menu menu-vertical menu">

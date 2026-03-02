@@ -92,6 +92,11 @@
                             @auth Administrator @else Visitor @endauth
                         </small>
                     </li>
+                    <ul>
+                        <strong class="text-dark">
+                            <a href="{{ route('profile.edit')}}">Profile</a>
+                        </strong><br>
+                    </ul>
 
                     @auth
                         @if(auth()->user()->role === 'admin')

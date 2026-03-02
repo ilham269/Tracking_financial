@@ -33,40 +33,89 @@
     }
 
     /* Dropdown */
-    .dropdown-menu {
+    #layout-navbar .dropdown-menu {
         border: none;
         border-radius: 12px;
         box-shadow: 0 10px 30px rgba(0,0,0,.12);
     }
 
-    .dropdown-header {
+    #layout-navbar .dropdown-header {
         color: #111827;
         font-weight: 600;
     }
 
-    .dropdown-item {
+    #layout-navbar .dropdown-item {
         font-weight: 500;
         color: #111827;
         border-radius: 8px;
     }
 
-    .dropdown-item:hover {
+    #layout-navbar .dropdown-item:hover {
         background-color: #f3f4f6;
         color: #000000;
     }
 
-    .dropdown-item.text-danger {
+    #layout-navbar .dropdown-item.text-danger {
         color: #b91c1c !important;
     }
 
     /* Avatar */
-    .navbar img.rounded-circle {
+    #layout-navbar img.rounded-circle {
         border: 2px solid #e5e7eb;
     }
 
+    .admin-avatar-fallback {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        background-color: #111827;
+        color: #ffffff;
+        font-weight: 600;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+    }
+
     /* Divider */
-    .dropdown-divider {
+    #layout-navbar .dropdown-divider {
         border-color: #e5e7eb;
+    }
+
+    @media (max-width: 1199.98px) {
+        #layout-navbar {
+            padding: 0.5rem 0.75rem !important;
+            min-height: 60px;
+        }
+
+        #layout-navbar .fs-5 {
+            font-size: 1rem !important;
+        }
+
+        #layout-navbar .nav-link {
+            padding: 0.4rem 0.45rem;
+        }
+    }
+
+    @media (max-width: 575.98px) {
+        #layout-navbar {
+            padding: 0.45rem 0.6rem !important;
+            min-height: 56px;
+        }
+
+        #layout-navbar .fs-5 {
+            font-size: 0.92rem !important;
+        }
+
+        .badge-notifications {
+            font-size: 9px;
+            padding: 3px 5px;
+        }
+
+        #layout-navbar img.rounded-circle,
+        .admin-avatar-fallback {
+            width: 36px !important;
+            height: 36px !important;
+        }
     }
 </style>
 
@@ -82,12 +131,13 @@
 
     <div class="navbar-nav align-items-center">
         <span class="fw-semibold fs-5">
-            👑 Admin Panel
+            Admin Panel
         </span>
     </div>
 
     {{-- Right --}}
     <div class="navbar-nav ms-auto align-items-center">
+        @auth
 
         {{-- Notification --}}
         <div class="nav-item dropdown me-3">
@@ -140,10 +190,9 @@
                          class="rounded-circle"
                          width="40" height="40">
                 @else
-                    <img src="https://ui-avatars.com/api/?name={{ auth()->user()->name }}&background=111827&color=fff"
-                         alt="Avatar"
-                         class="rounded-circle"
-                         width="40" height="40">
+                    <span class="admin-avatar-fallback">
+                        {{ strtoupper(substr(auth()->user()->name, 0, 1)) }}
+                    </span>
                 @endif
             </a>
 
@@ -172,13 +221,14 @@
                 <li>
                     <form method="POST" action="{{ route('logout') }}">
                         @csrf
-                        <button class="dropdown-item text-danger">
+                        <button type="submit" class="dropdown-item text-danger">
                             <i class="bx bx-log-out me-2"></i> Logout
                         </button>
                     </form>
                 </li>
             </ul>
         </div>
+        @endauth
 
     </div>
 </nav>

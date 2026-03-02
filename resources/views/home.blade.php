@@ -17,9 +17,6 @@
                         </h4>
                         <small class="text-muted">Kelola keuanganmu dengan bijak hari ini</small>
                     </div>
-                    <span class="badge badge-role px-3 py-2 rounded-pill">
-                        Admin
-                    </span>
                 </div>
             </div>
         </div>
@@ -109,11 +106,11 @@
                     </div>
 
                     <div class="d-flex flex-wrap gap-2">
-                        <a href="{{ route('uang-masuk.create') }}" class="btn btn-success btn-soft rounded-pill px-4">
+                        <a href="{{ route('uang-masuk.index') }}" class="btn btn-success btn-soft rounded-pill px-4">
                             <i class="bi bi-plus-circle me-1"></i> Uang Masuk
                         </a>
 
-                        <a href="{{ route('uang-keluar.create') }}" class="btn btn-danger btn-soft rounded-pill px-4">
+                        <a href="{{ route('uang-keluar.index') }}" class="btn btn-danger btn-soft rounded-pill px-4">
                             <i class="bi bi-dash-circle me-1"></i> Uang Keluar
                         </a>
 

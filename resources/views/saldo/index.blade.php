@@ -5,7 +5,13 @@
 <div class="card border-0 rounded-4 card-elevated">
     <div class="card-header d-flex justify-content-between align-items-center flex-wrap gap-2 border-0 bg-transparent">
         <div>
-            <p class="text-uppercase letter-spaced text-muted mb-1">Saldo</p>
+        <a href="{{route('home')}}" style="color: rgb(255, 255, 255)"><i class="bi bi-arrow-return-left"></i></a>
+        <div>
+            <p>
+
+            </p>
+        </div>
+        <p class="text-uppercase letter-spaced text-muted mb-1">Saldo</p>
             <h5 class="mb-0 text-white">Data Saldo</h5>
         </div>
         <a href="{{ route('saldo.create') }}" class="btn btn-primary btn-soft rounded-pill px-3">
@@ -27,7 +33,7 @@
                 @forelse ($saldos as $saldo)
                     <tr>
                         <td>
-                            <span class="fw-semibold">#{{ $saldo->id }}</span>
+                            <span class="fw-semibold">{{ $saldo->id }}</span>
                         </td>
 
                         <td>{{ $saldo->nama_e_wallet }}</td>

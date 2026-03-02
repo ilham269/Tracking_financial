@@ -6,6 +6,14 @@
 <div class="container">
     <div class="card shadow-sm">
         <div class="card-header">
+            <a href="{{route('home')}}" style="color: black"><i class="bi bi-arrow-return-left"></i></a>
+            <div>
+                <strong>
+                    <p>
+                        
+                    </p>
+                </strong>
+            </div>
             <h5 class="mb-0">Foto Profil</h5>
         </div>
         <div class="card-body">
@@ -35,12 +43,19 @@
                 @csrf
                 <div class="mb-3">
                     <label class="form-label">Upload Foto</label>
-                    <input type="file" name="photo" class="form-control" accept="image/*" required>
+                    <input type="file" name="photo" class="form-control" accept="image/*">
                     @error('photo')
                         <small class="text-danger">{{ $message }}</small>
                     @enderror
                 </div>
-                <button class="btn btn-dark">Simpan</button>
+                <div class="mb-3">
+                    <label class="form-label">Nama</label>
+                    <input type="text" name="name" class="form-control" value="{{ old('name', $user->name) }}">
+                    @error('name')
+                        <small class="text-danger">{{ $message }}</small>
+                    @enderror
+                </div>
+                 <button class="btn btn-dark">Simpan</button>
             </form>
         </div>
     </div>

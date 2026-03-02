@@ -27,6 +27,11 @@
 
     {{-- ===== CUSTOM MONOCHROME STYLE ===== --}}
     <style>
+        html, body {
+            max-width: 100%;
+            overflow-x: hidden;
+        }
+
         body {
             font-family: 'Poppins', sans-serif;
             background-color: #f3f4f6;
@@ -107,6 +112,41 @@
         footer {
             background-color: transparent;
             color: #6b7280;
+        }
+
+        /* ================= MOBILE ================= */
+        @media (max-width: 1199.98px) {
+            .layout-page {
+                width: 100%;
+            }
+
+            .layout-navbar.navbar-detached {
+                margin: 0.75rem !important;
+                border-radius: 12px;
+            }
+
+            .container-xxl.container-p-y {
+                padding-top: 1rem !important;
+                padding-left: 0.75rem !important;
+                padding-right: 0.75rem !important;
+            }
+
+            .card {
+                border-radius: 12px;
+                box-shadow: 0 8px 20px rgba(0,0,0,.08);
+            }
+        }
+
+        @media (max-width: 575.98px) {
+            .layout-navbar.navbar-detached {
+                margin: 0.5rem !important;
+                border-radius: 10px;
+            }
+
+            .container-xxl.container-p-y {
+                padding-left: 0.5rem !important;
+                padding-right: 0.5rem !important;
+            }
         }
     </style>
 

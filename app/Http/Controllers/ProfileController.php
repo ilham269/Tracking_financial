@@ -16,22 +16,33 @@ class ProfileController extends Controller
 
     public function updatePhoto(Request $request)
     {
-        $request->validate([
-            'photo' => 'required|image|max:2048',
+        $validated = $request->validate([
+            'name' => 'nullable|string|max:255',
+            'photo' => 'nullable|image|max:2048',
         ]);
 
         $user = $request->user();
+        $updates = [];
 
-        if ($user->profile_photo_path) {
-            Storage::disk('public')->delete($user->profile_photo_path);
+        if (array_key_exists('name', $validated) && filled($validated['name'])) {
+            $updates['name'] = $validated['name'];
         }
 
-        $path = $request->file('photo')->store('profile-photos', 'public');
+        if ($request->hasFile('photo')) {
+            if ($user->profile_photo_path) {
+                Storage::disk('public')->delete($user->profile_photo_path);
+            }
 
-        $user->update([
-            'profile_photo_path' => $path,
-        ]);
+            $path = $request->file('photo')->store('profile-photos', 'public');
+            $updates['profile_photo_path'] = $path;
+        }
 
-        return back()->with('success', 'Foto profil berhasil diperbarui.');
+        if (empty($updates)) {
+            return back()->with('success', 'Tidak ada perubahan.');
+        }
+
+        $user->update($updates);
+
+        return back()->with('success', 'Profil berhasil diperbarui.');
     }
 }

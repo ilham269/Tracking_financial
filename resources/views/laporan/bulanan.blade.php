@@ -146,7 +146,7 @@ new Chart(document.getElementById('keuanganChart'), {
     }
 
     .page-dark .card-elevated {
-        background-color: #141416;
+        background-color: #17171a;
         border: 1px solid #1f1f1f;
         box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25) !important;
     }

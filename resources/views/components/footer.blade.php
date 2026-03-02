@@ -5,7 +5,6 @@
             <strong>Admin Panel</strong>
         </div>
         <div>
-            <span class="text-muted">Laravel {{ app()->version() }}</span>
         </div>
     </div>
 </footer>
