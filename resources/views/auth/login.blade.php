@@ -30,26 +30,148 @@
 
   <!-- Page CSS -->
   <link rel="stylesheet" href="{{ asset('assets/vendor/css/pages/page-auth.css') }}" />
+  <style>
+    :root {
+      --auth-bg: #f4f6fb;
+      --auth-card: #ffffff;
+      --auth-text: #111827;
+      --auth-muted: #6b7280;
+      --auth-border: #dbe1ea;
+      --auth-dark: #111827;
+    }
+
+    body {
+      min-height: 100vh;
+      background:
+        radial-gradient(circle at 15% 20%, rgba(17, 24, 39, 0.08), transparent 38%),
+        radial-gradient(circle at 85% 80%, rgba(31, 41, 55, 0.08), transparent 36%),
+        var(--auth-bg);
+      color: var(--auth-text);
+    }
+
+    .auth-shell {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1.25rem 0.75rem;
+    }
+
+    .authentication-wrapper.authentication-basic {
+      padding: 0 !important;
+    }
+
+    .auth-card {
+      width: min(100%, 430px);
+      border: 1px solid rgba(17, 24, 39, 0.06);
+      border-radius: 20px;
+      box-shadow: 0 20px 45px rgba(17, 24, 39, 0.12);
+      background: var(--auth-card);
+    }
+
+    .auth-card .card-body {
+      padding: 2rem;
+    }
+
+    .auth-brand {
+      font-size: 1.15rem;
+      letter-spacing: 0.4px;
+      color: var(--auth-text);
+    }
+
+    .auth-title {
+      margin-bottom: 0.35rem;
+      font-weight: 700;
+      color: var(--auth-text);
+    }
+
+    .auth-subtitle {
+      margin-bottom: 1.5rem;
+      color: var(--auth-muted);
+    }
+
+    .form-label {
+      font-size: 0.84rem;
+      font-weight: 600;
+      color: #1f2937;
+      margin-bottom: 0.45rem;
+    }
+
+    .form-control,
+    .input-group-text {
+      border-color: var(--auth-border);
+      border-radius: 12px;
+      min-height: 44px;
+      background-color: #fff;
+    }
+
+    .input-group-text {
+      border-left: 0;
+      border-top-left-radius: 0;
+      border-bottom-left-radius: 0;
+    }
+
+    .input-group .form-control {
+      border-top-right-radius: 0;
+      border-bottom-right-radius: 0;
+    }
+
+    .form-control:focus,
+    .input-group:focus-within .input-group-text {
+      border-color: #111827;
+      box-shadow: 0 0 0 0.2rem rgba(17, 24, 39, 0.08);
+    }
+
+    .btn-auth {
+      background-color: var(--auth-dark);
+      border-color: var(--auth-dark);
+      border-radius: 12px;
+      min-height: 46px;
+      font-weight: 600;
+      letter-spacing: 0.2px;
+    }
+
+    .btn-auth:hover {
+      background-color: #000;
+      border-color: #000;
+    }
+
+    .auth-link {
+      color: #111827;
+      font-weight: 600;
+      text-decoration: none;
+    }
+
+    .auth-link:hover {
+      text-decoration: underline;
+    }
+
+    @media (max-width: 575.98px) {
+      .auth-card .card-body {
+        padding: 1.35rem 1.1rem;
+      }
+    }
+  </style>
 
   <script src="{{ asset('assets/vendor/js/helpers.js') }}"></script>
   <script src="{{ asset('assets/js/config.js') }}"></script>
 </head>
 
 <body>
-<div class="container-xxl">
+<div class="container-xxl auth-shell">
   <div class="authentication-wrapper authentication-basic container-p-y">
     <div class="authentication-inner">
 
-      <div class="card">
+      <div class="card auth-card">
         <div class="card-body">
 
           {{-- LOGO --}}
           <div class="app-brand justify-content-center mb-4">
-            <span class="app-brand-text fw-bold">Finance App</span>
+            <span class="app-brand-text fw-bold auth-brand">Finance App</span>
           </div>
 
-          <h4 class="mb-2">Welcome back 👋</h4>
-          <p class="mb-4">Please sign-in to your account</p>
+          <h4 class="auth-title">Welcome back</h4>
+          <p class="auth-subtitle">Please sign in to your account</p>
 
           {{-- FORM --}}
           <form method="POST" action="{{ route('login') }}">
@@ -114,10 +236,15 @@
             </div>
 
             {{-- BUTTON --}}
-            <button class="btn btn-primary d-grid w-100">
+            <button class="btn btn-primary d-grid w-100 btn-auth">
               Sign in
             </button>
           </form>
+
+          <p class="text-center mt-3 mb-0 text-muted">
+            <span>Belum punya akun?</span>
+            <a href="{{ route('register') }}" class="auth-link">Daftar</a>
+          </p>
 
         </div>
       </div>
