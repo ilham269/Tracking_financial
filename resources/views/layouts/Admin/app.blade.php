@@ -173,7 +173,7 @@
                 <div class="container-xxl flex-grow-1 container-p-y">
 
                     {{-- ALERT --}}
-                    @includeWhen(session()->has('success') || session()->has('error'), 'alert')
+                    @includeWhen(session()->has('success') || session()->has('error'), 'components.alert')
 
                     @yield('content')
 

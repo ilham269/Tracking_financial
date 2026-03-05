@@ -6,6 +6,7 @@ use App\Models\Uang_keluar;
 use App\Models\Saldo;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 
 class UangKeluarController extends Controller
 {
@@ -14,7 +15,13 @@ class UangKeluarController extends Controller
      */
     public function index()
     {
-        $exit = Uang_keluar::with('saldo')->get();
+        $exit = Uang_keluar::with('saldo')
+            ->whereHas('saldo', function ($query) {
+                $query->where('user_id', auth()->id());
+            })
+            ->latest()
+            ->get();
+
         return view('uang_keluar.index', compact('exit'));
     }
 
@@ -23,7 +30,8 @@ class UangKeluarController extends Controller
      */
     public function create()
     {
-        $saldos = Saldo::all();
+        $saldos = Saldo::where('user_id', auth()->id())->get();
+
         return view('uang_keluar.create', compact('saldos'));
     }
 
@@ -33,15 +41,18 @@ class UangKeluarController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'saldo_id' => 'required|exists:saldos,id', // JAMAK
+            'saldo_id' => [
+                'required',
+                Rule::exists('saldos', 'id')->where(function ($query) use ($request) {
+                    $query->where('user_id', $request->user()->id);
+                }),
+            ],
             'nominal'  => 'required|numeric|min:1',
             'tanggal_uang_keluar'  => 'required|date',
             'keterangan' => 'nullable|string'
         ]);
 
         $saldo = Saldo::findOrFail($request->saldo_id);
-
-        // ❌ VALIDASI SALDO TIDAK BOLEH MINUS
         if ($request->nominal > $saldo->total) {
             return back()
                 ->withErrors(['nominal' => 'Saldo tidak mencukupi'])
@@ -50,7 +61,7 @@ class UangKeluarController extends Controller
 
         DB::transaction(function () use ($request, $saldo) {
 
-            // simpan uang keluar
+
             Uang_keluar::create([
                 'nominal' => $request->nominal,
                 'keterangan' => $request->keterangan,
@@ -58,7 +69,6 @@ class UangKeluarController extends Controller
                 'saldo_id' => $request->saldo_id,
             ]);
 
-            // kurangi saldo
             $saldo->total -= $request->nominal;
             $saldo->save();
         });

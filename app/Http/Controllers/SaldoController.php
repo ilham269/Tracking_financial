@@ -12,7 +12,7 @@ class SaldoController extends Controller
      */
     public function index()
     {
-        $saldos = Saldo::all();
+        $saldos = Saldo::where('user_id', auth()->id())->get();
         return view('saldo.index', compact('saldos'));
     }
 
@@ -47,6 +47,7 @@ class SaldoController extends Controller
      */
     public function show(Saldo $saldo)
     {
+        $this->ensureOwnedByCurrentUser($saldo);
         return view('saldo.show', compact('saldo'));
     }
 
@@ -55,6 +56,7 @@ class SaldoController extends Controller
      */
     public function edit(Saldo $saldo)
     {
+        $this->ensureOwnedByCurrentUser($saldo);
         return view('saldo.edit', compact('saldo'));
     }
 
@@ -63,6 +65,8 @@ class SaldoController extends Controller
      */
     public function update(Request $request, Saldo $saldo)
     {
+        $this->ensureOwnedByCurrentUser($saldo);
+
         $request->validate([
             'nama_e_wallet'  => 'required|string|max:255',
             'total' => 'required|numeric'
@@ -82,9 +86,15 @@ class SaldoController extends Controller
      */
     public function destroy(Saldo $saldo)
     {
+        $this->ensureOwnedByCurrentUser($saldo);
         $saldo->delete();
 
         return redirect()->route('saldo.index')
             ->with('success', 'Data saldo berhasil dihapus');
+    }
+
+    private function ensureOwnedByCurrentUser(Saldo $saldo): void
+    {
+        abort_if($saldo->user_id !== auth()->id(), 403, 'Anda tidak memiliki akses ke saldo ini.');
     }
 }

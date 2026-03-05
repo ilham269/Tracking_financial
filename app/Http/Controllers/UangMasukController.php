@@ -6,6 +6,7 @@ use App\Models\Uang_masuk;
 use App\Models\Saldo;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Validation\Rule;
 
 class UangMasukController extends Controller
 {
@@ -14,7 +15,13 @@ class UangMasukController extends Controller
      */
     public function index()
     {
-        $enter = Uang_masuk::with('saldo')->latest()->get();
+        $enter = Uang_masuk::with('saldo')
+            ->whereHas('saldo', function ($query) {
+                $query->where('user_id', auth()->id());
+            })
+            ->latest()
+            ->get();
+
         return view('uang_masuk.index', compact('enter'));
     }
 
@@ -23,7 +30,8 @@ class UangMasukController extends Controller
      */
     public function create()
     {
-        $saldos = Saldo::all();
+        $saldos = Saldo::where('user_id', auth()->id())->get();
+
         return view('uang_masuk.create', compact('saldos'));
     }
 
@@ -34,7 +42,12 @@ class UangMasukController extends Controller
     {
         // ✅ VALIDASI
         $validated = $request->validate([
-            'saldo_id' => 'required|exists:saldos,id',
+            'saldo_id' => [
+                'required',
+                Rule::exists('saldos', 'id')->where(function ($query) use ($request) {
+                    $query->where('user_id', $request->user()->id);
+                }),
+            ],
             'nominal'  => 'required|numeric|min:1',
             'keterangan' => 'nullable|string|max:255',
             'tanggal_uang_masuk' => 'required|date',
@@ -93,4 +106,3 @@ class UangMasukController extends Controller
         //
     }
 }
-

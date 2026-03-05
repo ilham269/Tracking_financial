@@ -19,13 +19,14 @@
                     <th>Uang Keluar</th>
                     <th>Tanggal</th>
                     <th>Keterangan</th>
+                    <th class="text-center">Aksi</th>
                 </tr>
             </thead>
             <tbody>
                 @forelse ($rows as $row)
                     <tr>
                         <td>{{ $loop->iteration }}</td>
-                        <td>{{ $row['user']?->name ?? '-' }}</td>
+                        <td>{{ $row['user_name'] }}</td>
                         <td>
                             @if($row['saldo'])
                                 Rp {{ number_format($row['saldo']->total, 0, ',', '.') }}
@@ -55,10 +56,22 @@
                             {{ \Carbon\Carbon::parse($row['tanggal'])->format('d M Y') }}
                         </td>
                         <td>{{ $row['keterangan'] ?? '-' }}</td>
+                        <td class="text-center">
+                            <form action="{{ route('admin.transactions.destroy', ['type' => $row['type'], 'id' => $row['id']]) }}"
+                                  method="POST"
+                                  class="d-inline"
+                                  onsubmit="return confirm('Yakin ingin menghapus transaksi ini?')">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="btn btn-sm btn-outline-danger">
+                                    Hapus
+                                </button>
+                            </form>
+                        </td>
                     </tr>
                 @empty
                     <tr>
-                        <td colspan="7" class="text-center text-muted py-4">
+                        <td colspan="8" class="text-center text-muted py-4">
                             Data transaksi belum tersedia
                         </td>
                     </tr>
