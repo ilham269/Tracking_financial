@@ -6,8 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Saldo;
 use App\Models\Uang_keluar;
 use App\Models\Uang_masuk;
-use App\Models\UangMasuk;;
-use App\Models\UangKeluar;
+
 
 class HomeController extends Controller
 {
@@ -28,9 +27,18 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $totalSaldo = Saldo::sum('total');
-        $totalMasuk = Uang_masuk::sum('nominal');
-        $totalKeluar = Uang_keluar::sum('nominal');
+        // Ambil user yang sedang login
+        $userId = auth()->id();
+
+        // Ambil total saldo hanya untuk user yang login
+        $totalSaldo = Saldo::where('user_id', $userId)->sum('total');
+
+        // Ambil ID saldo milik user yang login
+        $saldoIds = Saldo::where('user_id', $userId)->pluck('id');
+
+        // Hitung total uang masuk dan keluar hanya dari saldo user yang login
+        $totalMasuk = Uang_masuk::whereIn('saldo_id', $saldoIds)->sum('nominal');
+        $totalKeluar = Uang_keluar::whereIn('saldo_id', $saldoIds)->sum('nominal');
 
         return view('home', compact(
             'totalSaldo',

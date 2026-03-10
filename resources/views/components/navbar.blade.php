@@ -139,48 +139,6 @@
     <div class="navbar-nav ms-auto align-items-center">
         @auth
 
-        {{-- Notification --}}
-        <div class="nav-item dropdown me-3">
-            <a class="nav-link dropdown-toggle hide-arrow" href="#" data-bs-toggle="dropdown">
-                <i class="bx bx-bell bx-sm"></i>
-                <span class="badge rounded-pill badge-notifications">3</span>
-            </a>
-
-            <ul class="dropdown-menu dropdown-menu-end p-2">
-                <li class="dropdown-header">
-                    Notifications
-                </li>
-
-                <li>
-                    <a class="dropdown-item d-flex align-items-start" href="#">
-                        <i class="bx bx-user-plus me-2"></i>
-                        <div>
-                            <small class="fw-semibold">User baru</small><br>
-                            <small class="text-muted">Ilham mendaftar</small>
-                        </div>
-                    </a>
-                </li>
-
-                <li>
-                    <a class="dropdown-item d-flex align-items-start" href="#">
-                        <i class="bx bx-shield-quarter me-2"></i>
-                        <div>
-                            <small class="fw-semibold">Admin login</small><br>
-                            <small class="text-muted">Beberapa detik lalu</small>
-                        </div>
-                    </a>
-                </li>
-
-                <li><hr class="dropdown-divider"></li>
-
-                <li class="text-center">
-                    <a href="#" class="dropdown-item fw-semibold">
-                        View all
-                    </a>
-                </li>
-            </ul>
-        </div>
-
         {{-- Profile --}}
         <div class="nav-item dropdown">
             <a class="nav-link dropdown-toggle hide-arrow d-flex align-items-center" href="#" data-bs-toggle="dropdown">
